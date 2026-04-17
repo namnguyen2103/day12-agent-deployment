@@ -102,5 +102,36 @@ cho phép và ghi nhận chi phí, dữ liệu tự reset nhờ expiration.
 
 ## Part 5: Scaling & Reliability
 
-### Exercise 5.1-5.5: Implementation notes
-[Your explanations and test results]
+### Exercise 5.1: Health check implementation
+```python
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+@app.get("/ready")
+def ready():
+    try:
+        r.ping()         
+        return {"status": "ready"}
+    except Exception:
+        return JSONResponse(status_code=503, content={"status": "not ready"})
+```
+
+### Exercise 5.2: Graceful shutdown
+
+```python
+import signal
+
+def shutdown_handler(signum, frame):
+    # uvicorn xử lý in-flight requests trước khi tắt
+    logger.info("SIGTERM received — shutting down gracefully")
+
+signal.signal(signal.SIGTERM, shutdown_handler)
+```
+- Khi gửi `kill -TERM $PID` trong khi request đang chạy, request vẫn hoàn thành trước khi process exit.
+
+### Exercise 5.4: Load balancing
+- `docker compose logs agent` cho thấy requests được phân tán đều.
+
+### Exercise 5.5: Test stateless
+- Conversation vẫn sẽ còn nếu Redis đang chạy
