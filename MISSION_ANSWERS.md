@@ -49,7 +49,7 @@ graph TD
 ### Exercise 3.1: Railway deployment
 - URL: https://day12-agent-deployment-production-domixi.up.railway.app
 - Screenshot:
-<img width="3070" height="1046" alt="image" src="https://github.com/user-attachments/assets/f4218430-62f4-4e1b-9251-79c211d675f8" />
+<img width="1000" height="340" alt="image" src="https://github.com/user-attachments/assets/f4218430-62f4-4e1b-9251-79c211d675f8" />
 
 
 ## Part 4: API Security
